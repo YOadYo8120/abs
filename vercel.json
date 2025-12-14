@@ -2,7 +2,15 @@
   "framework": null,
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "false"
+    "APP_DEBUG": "false",
+    "APP_KEY": "@APP_KEY",
+    "DB_CONNECTION": "pgsql",
+    "DB_HOST": "@DB_HOST",
+    "DB_PORT": "@DB_PORT",
+    "DB_DATABASE": "@DB_DATABASE",
+    "DB_USERNAME": "@DB_USERNAME",
+    "DB_PASSWORD": "@DB_PASSWORD",
+    "DB_SSLMODE": "require"
   },
   "routes": [
     {
@@ -21,12 +29,17 @@
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.2",
-      "memory": 1024,
-      "maxDuration": 60
+      "memory": 512,
+      "maxDuration": 30
+    },
+    "public/index.php": {
+      "runtime": "vercel-php@0.7.2",
+      "memory": 512,
+      "maxDuration": 30
     }
   },
   "installCommand": "npm ci && composer install --optimize-autoloader --no-dev",
-  "buildCommand": "npm run build && php artisan config:cache && php artisan route:cache",
+  "buildCommand": "npm run build && php artisan config:cache && php artisan route:cache && php artisan migrate --force",
   "outputDirectory": "public",
   "git": {
     "deploymentEnabled": {
