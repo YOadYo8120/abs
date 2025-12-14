@@ -22,7 +22,7 @@
   "functions": {
     "api/index.php": {
       "runtime": "php:8.2",
-      "memory": 3008,
+      "memory": 1024,
       "maxDuration": 60,
       "includeFiles": "**/*.php"
     }
