@@ -5,28 +5,20 @@
     "APP_DEBUG": false,
     "APP_URL": "@APP_URL"
   },
-  "build": {
-    "web": [
-      {
-        "src": "public/index.php",
-        "use": "vercel-php@0.6.0"
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "public/index.php",
+      "methods": ["GET", "HEAD", "PUT", "POST", "DELETE", "PATCH", "OPTIONS"],
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
       }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "public/index.php",
-        "methods": ["GET", "HEAD", "PUT", "POST", "DELETE", "PATCH", "OPTIONS"],
-        "headers": {
-          "Cache-Control": "public, max-age=3600"
-        }
-      },
-      {
-        "src": "/storage/(.*)",
-        "status": 404
-      }
-    ]
-  },
+    },
+    {
+      "src": "/storage/(.*)",
+      "status": 404
+    }
+  ],
   "functions": {
     "api/index.php": {
       "runtime": "php:8.2",
