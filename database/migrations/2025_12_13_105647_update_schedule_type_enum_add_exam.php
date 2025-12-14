@@ -8,12 +8,20 @@ use Illuminate\Support\Facades\DB;
 return new class extends Migration
 {
     /**
+     * Indicates if the migration should run in a transaction.
+     *
+     * @var bool
+     */
+    public $withinTransaction = false;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        // Change the enum to include 'exam'
-        DB::statement("ALTER TABLE schedules MODIFY COLUMN schedule_type ENUM('course', 'TD', 'TP', 'exam') NULL");
+        // For PostgreSQL, we need to use ALTER TYPE
+        DB::statement("ALTER TABLE schedules DROP CONSTRAINT IF EXISTS schedules_schedule_type_check");
+        DB::statement("ALTER TABLE schedules ADD CONSTRAINT schedules_schedule_type_check CHECK (schedule_type::text = ANY (ARRAY['course'::character varying, 'TD'::character varying, 'TP'::character varying, 'exam'::character varying]::text[]))");
     }
 
     /**
@@ -22,6 +30,7 @@ return new class extends Migration
     public function down(): void
     {
         // Revert back to original enum values
-        DB::statement("ALTER TABLE schedules MODIFY COLUMN schedule_type ENUM('course', 'TD', 'TP') NULL");
+        DB::statement("ALTER TABLE schedules DROP CONSTRAINT IF EXISTS schedules_schedule_type_check");
+        DB::statement("ALTER TABLE schedules ADD CONSTRAINT schedules_schedule_type_check CHECK (schedule_type::text = ANY (ARRAY['course'::character varying, 'TD'::character varying, 'TP'::character varying]::text[]))");
     }
 };
