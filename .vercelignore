@@ -16,3 +16,4 @@ database/seeders
 database/factories
 tests
 phpunit.xml
+public/index.php
