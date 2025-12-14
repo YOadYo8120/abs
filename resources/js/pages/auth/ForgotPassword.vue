@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
-import { forgetPassword } from '@/routes/password';
+import { email as passwordEmail } from '@/routes/password';
 import { Form, Head } from '@inertiajs/vue3';
 
 defineProps<{
@@ -30,7 +30,7 @@ defineProps<{
         </div>
 
         <div class="space-y-6">
-            <Form v-bind="forgetPassword.form()" v-slot="{ errors, processing }">
+            <Form v-bind="passwordEmail.form()" v-slot="{ errors, processing }">
                 <div class="grid gap-2">
                     <Label for="email">Email address</Label>
                     <Input
@@ -48,6 +48,7 @@ defineProps<{
                     <Button
                         class="w-full"
                         :disabled="processing"
+                        type="submit"
                         data-test="email-password-reset-link-button"
                     >
                         <Spinner v-if="processing" />

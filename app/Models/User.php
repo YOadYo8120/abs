@@ -19,9 +19,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'first_name',
+        'last_name',
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -48,5 +51,45 @@ class User extends Authenticatable
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Check if user is teacher
+     */
+    public function isTeacher(): bool
+    {
+        return $this->role === 'teacher';
+    }
+
+    /**
+     * Check if user is student
+     */
+    public function isStudent(): bool
+    {
+        return $this->role === 'student';
+    }
+
+    /**
+     * Get modules taught by this teacher
+     */
+    public function modules()
+    {
+        return $this->hasMany(Module::class, 'teacher_id');
+    }
+
+    /**
+     * Get student record for this user
+     */
+    public function student()
+    {
+        return $this->hasOne(Student::class);
     }
 }
