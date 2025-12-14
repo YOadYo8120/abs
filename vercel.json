@@ -2,7 +2,7 @@
   "framework": null,
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": false,
+    "APP_DEBUG": "false",
     "APP_URL": "@APP_URL"
   },
   "routes": [
