@@ -1,6 +1,5 @@
 {
   "framework": null,
-  "php": "8.2",
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": false,
