@@ -20,10 +20,9 @@
   ],
   "functions": {
     "api/index.php": {
-      "runtime": "php:8.2",
+      "runtime": "vercel-php@0.7.2",
       "memory": 1024,
-      "maxDuration": 60,
-      "includeFiles": "**/*.php"
+      "maxDuration": 60
     }
   },
   "installCommand": "npm ci && composer install --optimize-autoloader --no-dev",
