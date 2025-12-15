@@ -44,7 +44,7 @@ class StudentPasswordNotification extends Notification
             ->line("**Email:** {$notifiable->email}")
             ->line("**Password:** {$this->password}")
             ->line('Please keep this information secure and change your password after your first login.')
-            ->action('Login to Your Account', url('/login'))
+            ->action('Login to Your Account', config('app.url') . '/login')
             ->line('If you have any questions, please contact the administration.')
             ->salutation('Best regards, ENSA Safi Administration');
     }
