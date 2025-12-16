@@ -22,11 +22,10 @@ class UploadThingService
      */
     public function upload(UploadedFile $file, string $folder = 'resources'): array
     {
-        // Generate a unique filename and custom ID
-        $customId = Str::uuid()->toString();
+        // Generate a unique filename
         $fileName = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
 
-        // Step 1: Request presigned POST data
+        // Step 1: Request presigned POST data (don't include customId - let UploadThing generate the key)
         $response = Http::withHeaders([
             'X-Uploadthing-Api-Key' => $this->apiKey,
         ])->post('https://api.uploadthing.com/v6/requestFileAccess', [
@@ -35,7 +34,6 @@ class UploadThingService
                     'name' => $fileName,
                     'size' => $file->getSize(),
                     'type' => $file->getMimeType(),
-                    'customId' => $customId,
                 ],
             ],
             'metadata' => [
