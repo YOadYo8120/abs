@@ -22,38 +22,54 @@ class UploadThingService
      */
     public function upload(UploadedFile $file, string $folder = 'resources'): array
     {
-        // Generate a unique filename
-        $fileName = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+        // Step 1: Request presigned upload URLs from UploadThing
+        $fileName = $file->getClientOriginalName();
+        $fileSize = $file->getSize();
+        $contentType = $file->getMimeType();
 
-        // Upload file using proper multipart/form-data format
-        $response = Http::withHeaders([
+        $prepareResponse = Http::withHeaders([
             'X-Uploadthing-Api-Key' => $this->apiKey,
-        ])->asMultipart()
-            ->attach('files', file_get_contents($file->getRealPath()), $fileName)
-            ->post('https://api.uploadthing.com/v6/uploadFiles');
+            'Content-Type' => 'application/json',
+        ])->post('https://api.uploadthing.com/v6/uploadFiles', [
+            'files' => [
+                [
+                    'name' => $fileName,
+                    'size' => $fileSize,
+                    'type' => $contentType,
+                ]
+            ],
+            'metadata' => [
+                'folder' => $folder,
+            ],
+        ]);
 
-        if (!$response->successful()) {
-            throw new \Exception('Failed to upload file: ' . $response->body());
+        if (!$prepareResponse->successful()) {
+            throw new \Exception('Failed to prepare upload: ' . $prepareResponse->body());
         }
 
-        $result = $response->json();
-        $fileData = $result['data'][0] ?? null;
+        $prepareData = $prepareResponse->json();
+        $uploadData = $prepareData['data'][0] ?? null;
 
-        if (!$fileData) {
-            throw new \Exception('Invalid response from UploadThing: ' . json_encode($result));
+        if (!$uploadData || empty($uploadData['url']) || empty($uploadData['key'])) {
+            throw new \Exception('Invalid prepare response: ' . json_encode($prepareData));
         }
 
-        $key = $fileData['key'] ?? null;
-        if (!$key) {
-            throw new \Exception('No file key in response');
+        // Step 2: Upload file content to presigned URL
+        $uploadResponse = Http::withHeaders([
+            'Content-Type' => $contentType,
+        ])->withBody(file_get_contents($file->getRealPath()), $contentType)
+            ->put($uploadData['url']);
+
+        if (!$uploadResponse->successful()) {
+            throw new \Exception('Failed to upload file to storage: ' . $uploadResponse->body());
         }
 
         // Return file information
         return [
-            'key' => $key,
-            'url' => "https://utfs.io/f/{$key}",
-            'name' => $file->getClientOriginalName(),
-            'size' => $file->getSize(),
+            'key' => $uploadData['key'],
+            'url' => "https://utfs.io/f/{$uploadData['key']}",
+            'name' => $fileName,
+            'size' => $fileSize,
             'type' => $file->getClientOriginalExtension(),
         ];
     }
