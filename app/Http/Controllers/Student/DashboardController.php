@@ -73,13 +73,20 @@ class DashboardController extends Controller
 
         // Get attendance statistics
         $attendances = Attendance::whereHas('schedule', function ($query) use ($student) {
-            $query->where('year', $student->year)
-                  ->where('specialization', $student->specialization)
-                  ->where(function ($q) use ($student) {
-                      $q->whereNull('track')
-                        ->orWhere('track', '')
-                        ->orWhere('track', $student->track);
-                  });
+            $query->where('year', $student->year);
+
+            // For years 1-2: specialization is NULL
+            // For years 3+: filter by specialization
+            if ($student->year >= 3) {
+                $query->where('specialization', $student->specialization)
+                      ->where(function ($q) use ($student) {
+                          $q->whereNull('track')
+                            ->orWhere('track', '')
+                            ->orWhere('track', $student->track);
+                      });
+            } else {
+                $query->whereNull('specialization');
+            }
         })
         ->where('student_id', $student->id)
         ->with(['schedule.module', 'schedule.teacher'])

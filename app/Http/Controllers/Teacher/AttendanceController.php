@@ -45,12 +45,27 @@ class AttendanceController extends Controller
         // Get students for this class
         $students = $this->getStudentsForSchedule($schedule);
 
+        // Transform students to include user data at root level for frontend
+        $studentsWithUserData = $students->map(function ($student) {
+            return [
+                'id' => $student->id,
+                'code' => $student->code,
+                'email' => $student->email,
+                'year' => $student->year,
+                'specialization' => $student->specialization,
+                'track' => $student->track,
+                'first_name' => $student->user->first_name ?? '',
+                'last_name' => $student->user->last_name ?? '',
+                'user_id' => $student->user_id,
+            ];
+        });
+
         // Auto-create present attendance for all students who don't have a record yet
         foreach ($students as $student) {
             Attendance::firstOrCreate(
                 [
                     'schedule_id' => $schedule->id,
-                    'student_id' => $student->id,
+                    'student_id' => $student['id'],
                 ],
                 [
                     'status' => 'present',
@@ -74,13 +89,13 @@ class AttendanceController extends Controller
             return response()->json([
                 'props' => [
                     'schedule' => $schedule,
-                    'students' => $students,
+                    'students' => $studentsWithUserData,
                     'attendances' => $attendances,
                 ]
             ]);
         }        return Inertia::render('Teacher/Attendance/Index', [
             'schedule' => $schedule,
-            'students' => $students,
+            'students' => $studentsWithUserData,
             'attendances' => $attendances,
         ]);
     }
