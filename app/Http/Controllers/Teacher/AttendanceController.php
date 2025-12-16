@@ -176,9 +176,11 @@ class AttendanceController extends Controller
             ->orderBy('last_name')
             ->orderBy('first_name');
 
-        // For years 1 and 2: no specialization filtering (students have null specialization)
+        // For years 1 and 2: no specialization filtering
+        // Students have NULL specialization, and schedule should also have NULL specialization
         if ($schedule->year <= 2) {
-            $query->whereNull('specialization');
+            $query->whereNull('specialization')
+                  ->whereNull('track');
         }
         // For years 3-5: filter by specialization
         else if ($schedule->year >= 3 && !empty($schedule->specialization)) {
@@ -187,6 +189,9 @@ class AttendanceController extends Controller
             // For GI years 4 and 5: filter by track
             if ($schedule->year >= 4 && $schedule->specialization === 'GI' && !empty($schedule->track)) {
                 $query->where('track', $schedule->track);
+            } else {
+                // If no track specified, make sure student also has no track
+                $query->whereNull('track');
             }
         }
 
