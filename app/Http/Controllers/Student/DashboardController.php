@@ -29,7 +29,7 @@ class DashboardController extends Controller
             ]);
         }
 
-        // Get all schedules for this student that have already occurred (based on academic calendar)
+        // Get all schedules for this student that have already occurred
         $pastSchedules = DB::table('schedules')
             ->join('academic_calendar', function($join) {
                 $join->on('schedules.year', '=', 'academic_calendar.year')
@@ -38,7 +38,15 @@ class DashboardController extends Controller
             })
             ->where('schedules.year', $student->year)
             ->where('schedules.week_number', '>', 0) // Only actual weeks, not template (0)
-            ->where('academic_calendar.end_date', '<=', now()->format('Y-m-d'))
+            ->where(function($query) {
+                // Include completed weeks OR current week with past sessions
+                $query->where('academic_calendar.end_date', '<', now()->format('Y-m-d'))
+                      ->orWhere(function($q) {
+                          // Current week: check if session day/time has passed
+                          $q->where('academic_calendar.start_date', '<=', now()->format('Y-m-d'))
+                            ->where('academic_calendar.end_date', '>=', now()->format('Y-m-d'));
+                      });
+            })
             ->where(function($query) use ($student) {
                 if ($student->year >= 3) {
                     $query->where('schedules.specialization', $student->specialization);
@@ -56,6 +64,37 @@ class DashboardController extends Controller
             })
             ->select('schedules.*')
             ->get();
+
+        // Filter to only include sessions that have actually occurred
+        $now = now();
+        $dayOfWeek = $now->format('l'); // Monday, Tuesday, etc.
+        $currentTime = $now->format('H:i:s');
+
+        $pastSchedules = collect($pastSchedules)->filter(function($schedule) use ($dayOfWeek, $currentTime, $now) {
+            // If schedule is from a previous week, include it
+            $scheduleWeekStart = \Carbon\Carbon::parse($schedule->start_date ?? now());
+            if ($scheduleWeekStart->lt($now->startOfWeek())) {
+                return true;
+            }
+
+            // For current week: check if the day has passed or if it's today and time has passed
+            $daysPassed = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            $currentDayIndex = array_search($dayOfWeek, $daysPassed);
+            $scheduleDayIndex = array_search($schedule->day, $daysPassed);
+
+            // If schedule day hasn't come yet this week
+            if ($scheduleDayIndex > $currentDayIndex) {
+                return false;
+            }
+
+            // If schedule day is today, check if the session time has passed
+            if ($scheduleDayIndex === $currentDayIndex) {
+                return $schedule->end_time <= $currentTime;
+            }
+
+            // Schedule day was earlier this week
+            return true;
+        });
 
         // Auto-create "present" attendance for all past schedules where no record exists
         foreach ($pastSchedules as $schedule) {
