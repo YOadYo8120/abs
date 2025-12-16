@@ -30,7 +30,6 @@ class UploadThingService
             'name' => $file->getClientOriginalName(),
             'size' => $file->getSize(),
             'type' => $file->getClientOriginalExtension(),
-            'file_content' => null, // No longer storing in database
         ];
     }
 

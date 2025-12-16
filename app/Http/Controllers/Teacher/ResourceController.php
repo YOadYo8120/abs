@@ -133,8 +133,7 @@ class ResourceController extends Controller
                 'title' => $validated['title'],
                 'description' => $validated['description'],
                 'file_name' => $uploadResult['name'],
-                'file_path' => $uploadResult['key'], // Store the key
-                'file_content' => $uploadResult['file_content'], // Store base64 content
+                'file_path' => $uploadResult['key'], // Store the R2 path
                 'file_type' => $uploadResult['type'],
                 'file_size' => $uploadResult['size'],
                 'scope' => $validated['scope'],
