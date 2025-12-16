@@ -149,9 +149,9 @@
             @foreach($students as $index => $student)
             <tr>
                 <td style="text-align: center;">{{ $index + 1 }}</td>
-                <td>{{ $student->student_code }}</td>
-                <td><strong>{{ strtoupper($student->last_name) }}</strong></td>
-                <td>{{ $student->first_name }}</td>
+                <td>{{ $student->user->email ?? 'N/A' }}</td>
+                <td><strong>{{ strtoupper($student->user->last_name ?? '') }}</strong></td>
+                <td>{{ $student->user->first_name ?? '' }}</td>
                 <td style="text-align: center;"><span class="checkbox"></span></td>
                 <td style="text-align: center;"><span class="checkbox"></span></td>
                 <td style="text-align: center;"><span class="checkbox"></span></td>
