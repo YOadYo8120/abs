@@ -138,8 +138,8 @@ class AttendanceListController extends Controller
             'end_time' => $validated['end_time'],
             'students' => $students,
             'className' => $className,
-            'specialization' => $validated['specialization'],
-            'track' => $validated['track'],
+            'specialization' => $validated['specialization'] ?? null,
+            'track' => $validated['track'] ?? null,
             'generatedAt' => now(),
         ];
 
