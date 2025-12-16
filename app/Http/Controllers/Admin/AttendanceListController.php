@@ -102,7 +102,13 @@ class AttendanceListController extends Controller
             $studentsQuery->whereNull('specialization');
         }
 
-        $students = $studentsQuery->orderBy('last_name')->orderBy('first_name')->get();
+        $students = $studentsQuery
+            ->with('user')
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->orderBy('users.last_name')
+            ->orderBy('users.first_name')
+            ->select('students.*')
+            ->get();
 
         // Build class name
         $className = 'Year ' . $validated['year'];
