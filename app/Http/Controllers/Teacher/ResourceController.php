@@ -133,7 +133,8 @@ class ResourceController extends Controller
                 'title' => $validated['title'],
                 'description' => $validated['description'],
                 'file_name' => $uploadResult['name'],
-                'file_path' => $uploadResult['key'], // Store the UploadThing key
+                'file_path' => $uploadResult['key'], // Store the key
+                'file_content' => $uploadResult['file_content'], // Store base64 content
                 'file_type' => $uploadResult['type'],
                 'file_size' => $uploadResult['size'],
                 'scope' => $validated['scope'],
@@ -155,21 +156,23 @@ class ResourceController extends Controller
     /**
      * Download a resource
      */
-    public function download(Resource $resource, UploadThingService $uploadThing)
+    public function download(Resource $resource)
     {
-        // Redirect to UploadThing URL for direct download
-        return redirect($uploadThing->getUrl($resource->file_path));
+        // Decode base64 content from database
+        $fileContent = base64_decode($resource->file_content);
+
+        // Return as download response
+        return response($fileContent, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . $resource->file_name . '"');
     }
 
     /**
      * Remove the specified resource
      */
-    public function destroy(Resource $resource, UploadThingService $uploadThing)
+    public function destroy(Resource $resource)
     {
-        // Delete from UploadThing
-        $uploadThing->delete($resource->file_path);
-
-        // Delete from database
+        // Delete from database (file content is in DB)
         $resource->delete();
 
         return back()->with('success', 'Resource deleted successfully');

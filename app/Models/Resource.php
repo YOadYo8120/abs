@@ -12,6 +12,7 @@ class Resource extends Model
         'description',
         'file_name',
         'file_path',
+        'file_content',
         'file_type',
         'file_size',
         'scope',
