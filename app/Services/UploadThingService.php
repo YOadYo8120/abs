@@ -25,17 +25,12 @@ class UploadThingService
         // Generate a unique filename
         $fileName = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
 
-        // Direct upload to UploadThing using multipart/form-data
+        // Upload file using proper multipart/form-data format
         $response = Http::withHeaders([
             'X-Uploadthing-Api-Key' => $this->apiKey,
-        ])->attach(
-            'files',
-            file_get_contents($file->getRealPath()),
-            $fileName
-        )->post('https://api.uploadthing.com/v6/uploadFiles', [
-            'metadata' => json_encode(['folder' => $folder]),
-            'acl' => 'public-read',
-        ]);
+        ])->asMultipart()
+            ->attach('files', file_get_contents($file->getRealPath()), $fileName)
+            ->post('https://api.uploadthing.com/v6/uploadFiles');
 
         if (!$response->successful()) {
             throw new \Exception('Failed to upload file: ' . $response->body());
