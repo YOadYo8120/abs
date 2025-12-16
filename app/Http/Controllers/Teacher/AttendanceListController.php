@@ -115,11 +115,15 @@ class AttendanceListController extends Controller
 
         // Build class name
         $className = 'Year ' . $validated['year'];
-        if ($validated['specialization']) {
+        if (isset($validated['specialization']) && $validated['specialization']) {
             $className .= ' - ' . $validated['specialization'];
-            if ($validated['track']) {
+            if (isset($validated['track']) && $validated['track']) {
                 $className .= ' (' . $validated['track'] . ')';
             }
+        } elseif ($validated['year'] == 1) {
+            $className = 'CP1';
+        } elseif ($validated['year'] == 2) {
+            $className = 'CP2';
         }
 
         // Prepare data for PDF
