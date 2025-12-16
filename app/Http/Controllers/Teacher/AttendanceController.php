@@ -176,23 +176,18 @@ class AttendanceController extends Controller
             ->orderBy('last_name')
             ->orderBy('first_name');
 
-        // For years 1 and 2: no specialization filtering
-        // Students have NULL specialization, and schedule should also have NULL specialization
-        if ($schedule->year <= 2) {
-            $query->whereNull('specialization')
-                  ->whereNull('track');
-        }
-        // For years 3-5: filter by specialization
-        else if ($schedule->year >= 3 && !empty($schedule->specialization)) {
+        // For years 1-2 (CP1/CP2): specialization is NULL, no filtering needed
+        // For years 3+: filter by specialization
+        if ($schedule->year >= 3 && !empty($schedule->specialization)) {
             $query->where('specialization', $schedule->specialization);
+        }
 
-            // For GI years 4 and 5: filter by track
-            if ($schedule->year >= 4 && $schedule->specialization === 'GI' && !empty($schedule->track)) {
-                $query->where('track', $schedule->track);
-            } else {
-                // If no track specified, make sure student also has no track
-                $query->whereNull('track');
-            }
+        // For GI years 4 and 5: filter by track if specified
+        if ($schedule->year >= 4 && $schedule->specialization === 'GI' && !empty($schedule->track)) {
+            $query->where('track', $schedule->track);
+        } else {
+            // If no track specified, make sure student also has no track
+            $query->whereNull('track');
         }
 
         return $query->get();
@@ -208,18 +203,16 @@ class AttendanceController extends Controller
             return false;
         }
 
-        // For years 1 and 2: only year matters
-        if ($schedule->year <= 2) {
-            return $student->specialization === null;
-        }
-
-        // For years 3-5: check specialization
-        if ($student->specialization !== $schedule->specialization) {
-            return false;
+        // For years 1-2: specialization is NULL, only year matters
+        // For years 3+: check specialization
+        if ($schedule->year >= 3) {
+            if ($student->specialization !== $schedule->specialization) {
+                return false;
+            }
         }
 
         // For GI years 4-5: check track
-        if ($schedule->year >= 4 && $schedule->specialization === 'GI') {
+        if ($schedule->year >= 4 && $schedule->specialization === 'GI' && !empty($schedule->track)) {
             return $student->track === $schedule->track;
         }
 
