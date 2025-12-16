@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'uploadthing' => [
+        'api_key' => env('UPLOADTHING_SECRET'),
+        'app_id' => env('UPLOADTHING_APP_ID'),
+    ],
+
 ];

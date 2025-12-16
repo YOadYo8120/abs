@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Resource;
 use App\Models\Module;
 use App\Models\Schedule;
+use App\Services\UploadThingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -78,7 +79,7 @@ class ResourceController extends Controller
     /**
      * Store a newly created resource
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadThingService $uploadThing)
     {
         $teacher = $request->user();
 
@@ -122,46 +123,53 @@ class ResourceController extends Controller
             }
         }
 
-        // Store the file
-        $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $filePath = $file->storeAs('resources', $fileName, 'public');
+        // Upload the file to UploadThing
+        try {
+            $file = $request->file('file');
+            $uploadResult = $uploadThing->upload($file, 'resources');
 
-        $resource = Resource::create([
-            'user_id' => $teacher->id,
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'file_name' => $file->getClientOriginalName(),
-            'file_path' => $filePath,
-            'file_type' => $file->getClientOriginalExtension(),
-            'file_size' => $file->getSize(),
-            'scope' => $validated['scope'],
-            'module_id' => $validated['module_id'] ?? null,
-            'year' => $validated['year'] ?? null,
-            'specialization' => $validated['specialization'] ?? null,
-            'track' => $validated['track'] ?? null,
-            'semester' => $validated['semester'] ?? null,
-            'published_at' => now(),
-        ]);
+            $resource = Resource::create([
+                'user_id' => $teacher->id,
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'file_name' => $uploadResult['name'],
+                'file_path' => $uploadResult['key'], // Store the UploadThing key
+                'file_type' => $uploadResult['type'],
+                'file_size' => $uploadResult['size'],
+                'scope' => $validated['scope'],
+                'module_id' => $validated['module_id'] ?? null,
+                'year' => $validated['year'] ?? null,
+                'specialization' => $validated['specialization'] ?? null,
+                'track' => $validated['track'] ?? null,
+                'semester' => $validated['semester'] ?? null,
+                'published_at' => now(),
+            ]);
 
-        return redirect('/teacher/resources')
-            ->with('success', 'Resource uploaded successfully');
+            return redirect('/teacher/resources')
+                ->with('success', 'Resource uploaded successfully');
+        } catch (\Exception $e) {
+            return back()->withErrors(['file' => 'Failed to upload file: ' . $e->getMessage()]);
+        }
     }
 
     /**
      * Download a resource
      */
-    public function download(Resource $resource)
+    public function download(Resource $resource, UploadThingService $uploadThing)
     {
-        return Storage::disk('public')->download($resource->file_path, $resource->file_name);
+        // Redirect to UploadThing URL for direct download
+        return redirect($uploadThing->getUrl($resource->file_path));
     }
 
     /**
      * Remove the specified resource
      */
-    public function destroy(Resource $resource)
+    public function destroy(Resource $resource, UploadThingService $uploadThing)
     {
-        Storage::disk('public')->delete($resource->file_path);
+        // Delete from UploadThing
+        $uploadThing->delete($resource->file_path);
+
+        // Delete from database
         $resource->delete();
 
         return back()->with('success', 'Resource deleted successfully');
