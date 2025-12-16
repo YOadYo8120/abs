@@ -3,31 +3,52 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UploadThingService
 {
     /**
-     * Upload a file - stores in database temporarily
-     * TODO: Move to Cloudflare R2 or AWS S3 for production
+     * Upload a file to Cloudflare R2
      */
     public function upload(UploadedFile $file, string $folder = 'resources'): array
     {
-        // Generate unique key for the file
-        $key = Str::uuid() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+        // Generate unique filename
+        $filename = Str::uuid() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+        $path = $folder . '/' . $filename;
 
-        // Read file content and encode it
-        $fileContent = base64_encode(file_get_contents($file->getRealPath()));
+        // Upload to R2
+        Storage::disk('r2')->put($path, file_get_contents($file->getRealPath()), 'public');
+
+        // Get the public URL
+        $url = Storage::disk('r2')->url($path);
 
         // Return file information
         return [
-            'key' => $key,
-            'url' => url("/resources/download/{$key}"),
+            'key' => $path,
+            'url' => $url,
             'name' => $file->getClientOriginalName(),
             'size' => $file->getSize(),
             'type' => $file->getClientOriginalExtension(),
-            'file_content' => $fileContent, // This will be stored in database
+            'file_content' => null, // No longer storing in database
         ];
     }
+
+    /**
+     * Delete a file from R2
+     */
+    public function delete(string $path): bool
+    {
+        return Storage::disk('r2')->delete($path);
+    }
+
+    /**
+     * Get file URL from path
+     */
+    public function getUrl(string $path): string
+    {
+        return Storage::disk('r2')->url($path);
+    }
 }
+
 

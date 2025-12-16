@@ -156,23 +156,21 @@ class ResourceController extends Controller
     /**
      * Download a resource
      */
-    public function download(Resource $resource)
+    public function download(Resource $resource, UploadThingService $uploadThing)
     {
-        // Decode base64 content from database
-        $fileContent = base64_decode($resource->file_content);
-
-        // Return as download response
-        return response($fileContent, 200)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'attachment; filename="' . $resource->file_name . '"');
+        // For R2, redirect to the public URL
+        return redirect($uploadThing->getUrl($resource->file_path));
     }
 
     /**
      * Remove the specified resource
      */
-    public function destroy(Resource $resource)
+    public function destroy(Resource $resource, UploadThingService $uploadThing)
     {
-        // Delete from database (file content is in DB)
+        // Delete from R2
+        $uploadThing->delete($resource->file_path);
+
+        // Delete from database
         $resource->delete();
 
         return back()->with('success', 'Resource deleted successfully');
