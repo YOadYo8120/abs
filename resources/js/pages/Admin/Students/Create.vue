@@ -12,7 +12,8 @@ import InputError from '@/components/InputError.vue'
 import { store as studentsStore, index as studentsIndex } from '@/routes/admin/students'
 
 const form = useForm({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     year: null as number | null,
     specialization: null as string | null,
@@ -94,17 +95,30 @@ const submit = () => {
                     </CardHeader>
                     <CardContent>
                         <form @submit.prevent="submit" class="space-y-6">
-                            <!-- Name -->
+                            <!-- First Name -->
                             <div>
-                                <Label for="name">Full Name</Label>
+                                <Label for="first_name">First Name</Label>
                                 <Input
-                                    id="name"
-                                    v-model="form.name"
+                                    id="first_name"
+                                    v-model="form.first_name"
                                     type="text"
                                     required
-                                    placeholder="e.g., Ahmed El Mansouri"
+                                    placeholder="e.g., Ahmed"
                                 />
-                                <InputError :message="form.errors.name" />
+                                <InputError :message="form.errors.first_name" />
+                            </div>
+
+                            <!-- Last Name -->
+                            <div>
+                                <Label for="last_name">Last Name</Label>
+                                <Input
+                                    id="last_name"
+                                    v-model="form.last_name"
+                                    type="text"
+                                    required
+                                    placeholder="e.g., El Mansouri"
+                                />
+                                <InputError :message="form.errors.last_name" />
                             </div>
 
                             <!-- Email -->
