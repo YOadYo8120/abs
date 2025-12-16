@@ -22,7 +22,8 @@ class UploadThingService
      */
     public function upload(UploadedFile $file, string $folder = 'resources'): array
     {
-        // Generate a unique filename
+        // Generate a unique filename and custom ID
+        $customId = Str::uuid()->toString();
         $fileName = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
 
         // Step 1: Request presigned POST data
@@ -34,6 +35,7 @@ class UploadThingService
                     'name' => $fileName,
                     'size' => $file->getSize(),
                     'type' => $file->getMimeType(),
+                    'customId' => $customId,
                 ],
             ],
             'metadata' => [
