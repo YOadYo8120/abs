@@ -172,28 +172,28 @@ class AttendanceController extends Controller
     private function getStudentsForSchedule(Schedule $schedule)
     {
         $query = Student::query()
-            ->where('year', $schedule->year)
-            ->orderBy('last_name')
-            ->orderBy('first_name');
+            ->with('user')
+            ->where('year', $schedule->year);
 
-        // For years 1-2 (CP1/CP2): specialization is NULL, no filtering needed
+        // For years 1-2 (CP1/CP2): specialization is NULL, no additional filtering
         // For years 3+: filter by specialization
         if ($schedule->year >= 3 && !empty($schedule->specialization)) {
             $query->where('specialization', $schedule->specialization);
+
+            // For GI years 4 and 5: filter by track if specified
+            if ($schedule->year >= 4 && $schedule->specialization === 'GI') {
+                if (!empty($schedule->track)) {
+                    $query->where('track', $schedule->track);
+                } else {
+                    $query->whereNull('track');
+                }
+            }
         }
 
-        // For GI years 4 and 5: filter by track if specified
-        if ($schedule->year >= 4 && $schedule->specialization === 'GI' && !empty($schedule->track)) {
-            $query->where('track', $schedule->track);
-        } else {
-            // If no track specified, make sure student also has no track
-            $query->whereNull('track');
-        }
-
-        return $query->get();
-    }
-
-    /**
+        return $query->get()->sortBy(function($student) {
+            return $student->user->last_name . ' ' . $student->user->first_name;
+        })->values();
+    }    /**
      * Check if student belongs to the schedule's class
      */
     private function studentBelongsToSchedule(Student $student, Schedule $schedule): bool
