@@ -25,21 +25,21 @@ class UploadThingService
         // Generate a unique filename
         $fileName = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
 
-        // Get presigned URL from UploadThing
+        // Step 1: Request presigned POST data
         $response = Http::withHeaders([
             'X-Uploadthing-Api-Key' => $this->apiKey,
-            'Content-Type' => 'application/json',
-        ])->post('https://api.uploadthing.com/v6/uploadFiles', [
+        ])->post('https://api.uploadthing.com/v6/requestFileAccess', [
             'files' => [
                 [
                     'name' => $fileName,
                     'size' => $file->getSize(),
                     'type' => $file->getMimeType(),
-                ]
+                ],
             ],
             'metadata' => [
                 'folder' => $folder,
             ],
+            'acl' => 'public-read',
         ]);
 
         if (!$response->successful()) {
@@ -47,22 +47,42 @@ class UploadThingService
         }
 
         $uploadData = $response->json();
-        $presignedUrl = $uploadData['data'][0]['url'] ?? null;
-        $key = $uploadData['data'][0]['key'] ?? null;
+        $fileData = $uploadData['data'][0] ?? null;
 
-        if (!$presignedUrl || !$key) {
-            throw new \Exception('Invalid response from UploadThing');
+        if (!$fileData) {
+            throw new \Exception('Invalid response from UploadThing: ' . json_encode($uploadData));
         }
 
-        // Upload the file to the presigned URL
-        $uploadResponse = Http::attach(
-            'file',
-            file_get_contents($file->getRealPath()),
-            $fileName
-        )->post($presignedUrl);
+        // Step 2: Upload to S3 using presigned POST
+        $fields = $fileData['fields'] ?? [];
+        $uploadUrl = $fileData['url'] ?? null;
+        $key = $fileData['key'] ?? null;
 
-        if (!$uploadResponse->successful()) {
-            throw new \Exception('Failed to upload file: ' . $uploadResponse->body());
+        if (!$uploadUrl || !$key) {
+            throw new \Exception('Missing upload URL or key in response');
+        }
+
+        // Prepare multipart form data for S3
+        $multipart = [];
+        foreach ($fields as $fieldKey => $fieldValue) {
+            $multipart[] = [
+                'name' => $fieldKey,
+                'contents' => $fieldValue,
+            ];
+        }
+
+        // Add the file
+        $multipart[] = [
+            'name' => 'file',
+            'contents' => fopen($file->getRealPath(), 'r'),
+            'filename' => $fileName,
+        ];
+
+        // Upload to S3
+        $uploadResponse = Http::asMultipart()->post($uploadUrl, $multipart);
+
+        if (!$uploadResponse->successful() && $uploadResponse->status() !== 204) {
+            throw new \Exception('Failed to upload file to storage: ' . $uploadResponse->body());
         }
 
         // Return file information
