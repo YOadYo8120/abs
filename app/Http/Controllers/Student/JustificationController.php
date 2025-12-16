@@ -289,20 +289,14 @@ class JustificationController extends Controller
             // Upload to R2
             Storage::disk('r2')->put($path, file_get_contents($file->getRealPath()), 'public');
 
-            // Get the public URL
-            $url = Storage::disk('r2')->url($path);
-
             JustificationFile::create([
                 'justification_id' => $justification->id,
                 'file_name' => $file->getClientOriginalName(),
                 'file_path' => $path,
-                'file_url' => $url,
                 'file_type' => $file->getClientOriginalExtension(),
                 'file_size' => $file->getSize(),
             ]);
-        }
-
-        return redirect()->route('student.justifications.index')
+        }        return redirect()->route('student.justifications.index')
             ->with('success', 'Justification submitted successfully');
     }
 
