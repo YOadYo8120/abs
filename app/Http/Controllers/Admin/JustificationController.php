@@ -143,7 +143,9 @@ class JustificationController extends Controller
     {
         $file = JustificationFile::findOrFail($fileId);
 
-        return Storage::disk('public')->download($file->file_path, $file->file_name);
+        // Redirect to R2 public URL for download
+        $url = Storage::disk('r2')->url($file->file_path);
+        return redirect($url);
     }
 }
 
