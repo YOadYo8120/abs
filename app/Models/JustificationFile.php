@@ -11,6 +11,7 @@ class JustificationFile extends Model
         'justification_id',
         'file_name',
         'file_path',
+        'file_url',
         'file_type',
         'file_size',
     ];

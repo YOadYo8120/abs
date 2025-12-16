@@ -281,14 +281,22 @@ class JustificationController extends Controller
             'status' => 'pending',
         ]);
 
-        // Upload and store files
+        // Upload and store files to R2
         foreach ($request->file('files') as $file) {
-            $path = $file->store('justifications', 'public');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = 'justifications/' . $fileName;
+
+            // Upload to R2
+            Storage::disk('r2')->put($path, file_get_contents($file->getRealPath()), 'public');
+
+            // Get the public URL
+            $url = Storage::disk('r2')->url($path);
 
             JustificationFile::create([
                 'justification_id' => $justification->id,
                 'file_name' => $file->getClientOriginalName(),
                 'file_path' => $path,
+                'file_url' => $url,
                 'file_type' => $file->getClientOriginalExtension(),
                 'file_size' => $file->getSize(),
             ]);
