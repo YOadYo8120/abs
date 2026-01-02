@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Button } from '@/components/ui/button';
@@ -86,6 +86,31 @@ const dayNames: Record<string, string> = {
 
 const showSpecialization = computed(() => year.value >= 3);
 const showTrack = computed(() => year.value >= 4 && specialization.value === 'GI');
+
+// Watch year changes and reset specialization/track when needed
+watch(year, (newYear) => {
+    if (newYear < 3) {
+        specialization.value = '';
+        track.value = '';
+    }
+    if (newYear < 4) {
+        track.value = '';
+    }
+    selectedSchedule.value = null;
+    schedules.value = [];
+    students.value = [];
+    loadSchedules();
+});
+
+// Watch specialization changes and reset track if not GI
+watch(specialization, (newSpec) => {
+    if (newSpec !== 'GI') {
+        track.value = '';
+    }
+    selectedSchedule.value = null;
+    schedules.value = [];
+    students.value = [];
+});
 
 // Load teacher's schedules
 const loadSchedules = async () => {
@@ -218,7 +243,7 @@ onMounted(() => {
                     <!-- Year -->
                     <div>
                         <Label>Year</Label>
-                        <Select v-model="year" @update:model-value="loadSchedules">
+                        <Select v-model="year">
                             <SelectTrigger>
                                 <SelectValue placeholder="Select year" />
                             </SelectTrigger>
@@ -249,7 +274,7 @@ onMounted(() => {
                     <!-- Specialization -->
                     <div v-if="showSpecialization">
                         <Label>Specialization</Label>
-                        <Select v-model="specialization" @update:model-value="loadSchedules">
+                        <Select v-model="specialization">
                             <SelectTrigger>
                                 <SelectValue placeholder="Select specialization" />
                             </SelectTrigger>
