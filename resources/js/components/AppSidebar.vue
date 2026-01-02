@@ -82,8 +82,8 @@ const mainNavItems = computed<NavItem[]>(() => {
                 icon: Calendar,
             },
             {
-                title: 'Attendance',
-                href: '/teacher/attendance',
+                title: 'Attendance Lists',
+                href: '/teacher/attendance-list',
                 icon: ClipboardCheck,
             },
             {
@@ -95,11 +95,6 @@ const mainNavItems = computed<NavItem[]>(() => {
                 title: 'Resources',
                 href: '/teacher/resources',
                 icon: Upload,
-            },
-            {
-                title: 'Attendance Lists',
-                href: '/teacher/attendance-list',
-                icon: FileText,
             },
         ];
     }

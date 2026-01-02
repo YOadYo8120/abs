@@ -1,0 +1,1 @@
+import{b as t}from"./index--RngV4lN.js";import{d as a,i as r,B as n,n as c,e as p,o as l}from"./app-CPometxZ.js";const f=a({__name:"CardDescription",props:{class:{}},setup(s){const e=s;return(o,m)=>(l(),r("p",{"data-slot":"card-description",class:c(p(t)("text-muted-foreground text-sm",e.class))},[n(o.$slots,"default")],2))}});export{f as _};
