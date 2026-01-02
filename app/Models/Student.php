@@ -18,6 +18,12 @@ class Student extends Model
         'user_id',
     ];
 
+    protected $appends = [
+        'specialization_name',
+        'track_name',
+        'year_name',
+    ];
+
     /**
      * Get the user account for the student.
      */

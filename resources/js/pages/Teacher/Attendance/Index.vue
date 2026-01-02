@@ -213,7 +213,7 @@ onMounted(() => {
             </div>
 
             <!-- Filters -->
-            <div class="bg-white p-6 rounded-lg shadow space-y-4">
+            <div class="bg-card p-6 rounded-lg shadow border space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                     <!-- Year -->
                     <div>
@@ -311,13 +311,13 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <div v-else class="text-center py-4 text-gray-500">
+                <div v-else class="text-center py-4 text-muted-foreground">
                     No sessions found for the selected filters.
                 </div>
             </div>
 
             <!-- Attendance Table -->
-            <div v-if="selectedSchedule && students.length > 0" class="bg-white p-6 rounded-lg shadow">
+            <div v-if="selectedSchedule && students.length > 0" class="bg-card p-6 rounded-lg shadow border">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-semibold">
                         {{ selectedSchedule.module.name }} - {{ dayNames[selectedSchedule.day] }}

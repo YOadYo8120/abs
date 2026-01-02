@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::index
-* @see app/Http/Controllers/Teacher/ResourceController.php:18
+* @see app/Http/Controllers/Teacher/ResourceController.php:19
 * @route '/teacher/resources'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::index
-* @see app/Http/Controllers/Teacher/ResourceController.php:18
+* @see app/Http/Controllers/Teacher/ResourceController.php:19
 * @route '/teacher/resources'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::index
-* @see app/Http/Controllers/Teacher/ResourceController.php:18
+* @see app/Http/Controllers/Teacher/ResourceController.php:19
 * @route '/teacher/resources'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::index
-* @see app/Http/Controllers/Teacher/ResourceController.php:18
+* @see app/Http/Controllers/Teacher/ResourceController.php:19
 * @route '/teacher/resources'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::index
-* @see app/Http/Controllers/Teacher/ResourceController.php:18
+* @see app/Http/Controllers/Teacher/ResourceController.php:19
 * @route '/teacher/resources'
 */
 const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -55,7 +55,7 @@ const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => (
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::index
-* @see app/Http/Controllers/Teacher/ResourceController.php:18
+* @see app/Http/Controllers/Teacher/ResourceController.php:19
 * @route '/teacher/resources'
 */
 indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -65,7 +65,7 @@ indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::index
-* @see app/Http/Controllers/Teacher/ResourceController.php:18
+* @see app/Http/Controllers/Teacher/ResourceController.php:19
 * @route '/teacher/resources'
 */
 indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::create
-* @see app/Http/Controllers/Teacher/ResourceController.php:35
+* @see app/Http/Controllers/Teacher/ResourceController.php:36
 * @route '/teacher/resources/create'
 */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -97,7 +97,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::create
-* @see app/Http/Controllers/Teacher/ResourceController.php:35
+* @see app/Http/Controllers/Teacher/ResourceController.php:36
 * @route '/teacher/resources/create'
 */
 create.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::create
-* @see app/Http/Controllers/Teacher/ResourceController.php:35
+* @see app/Http/Controllers/Teacher/ResourceController.php:36
 * @route '/teacher/resources/create'
 */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -116,7 +116,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::create
-* @see app/Http/Controllers/Teacher/ResourceController.php:35
+* @see app/Http/Controllers/Teacher/ResourceController.php:36
 * @route '/teacher/resources/create'
 */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -126,7 +126,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::create
-* @see app/Http/Controllers/Teacher/ResourceController.php:35
+* @see app/Http/Controllers/Teacher/ResourceController.php:36
 * @route '/teacher/resources/create'
 */
 const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -136,7 +136,7 @@ const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => 
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::create
-* @see app/Http/Controllers/Teacher/ResourceController.php:35
+* @see app/Http/Controllers/Teacher/ResourceController.php:36
 * @route '/teacher/resources/create'
 */
 createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -146,7 +146,7 @@ createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::create
-* @see app/Http/Controllers/Teacher/ResourceController.php:35
+* @see app/Http/Controllers/Teacher/ResourceController.php:36
 * @route '/teacher/resources/create'
 */
 createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -163,7 +163,7 @@ create.form = createForm
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::store
-* @see app/Http/Controllers/Teacher/ResourceController.php:81
+* @see app/Http/Controllers/Teacher/ResourceController.php:82
 * @route '/teacher/resources'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -178,7 +178,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::store
-* @see app/Http/Controllers/Teacher/ResourceController.php:81
+* @see app/Http/Controllers/Teacher/ResourceController.php:82
 * @route '/teacher/resources'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -187,7 +187,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::store
-* @see app/Http/Controllers/Teacher/ResourceController.php:81
+* @see app/Http/Controllers/Teacher/ResourceController.php:82
 * @route '/teacher/resources'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -197,7 +197,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::store
-* @see app/Http/Controllers/Teacher/ResourceController.php:81
+* @see app/Http/Controllers/Teacher/ResourceController.php:82
 * @route '/teacher/resources'
 */
 const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -207,7 +207,7 @@ const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => 
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::store
-* @see app/Http/Controllers/Teacher/ResourceController.php:81
+* @see app/Http/Controllers/Teacher/ResourceController.php:82
 * @route '/teacher/resources'
 */
 storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -526,7 +526,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::destroy
-* @see app/Http/Controllers/Teacher/ResourceController.php:162
+* @see app/Http/Controllers/Teacher/ResourceController.php:167
 * @route '/teacher/resources/{resource}'
 */
 export const destroy = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -541,7 +541,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::destroy
-* @see app/Http/Controllers/Teacher/ResourceController.php:162
+* @see app/Http/Controllers/Teacher/ResourceController.php:167
 * @route '/teacher/resources/{resource}'
 */
 destroy.url = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -574,7 +574,7 @@ destroy.url = (args: { resource: number | { id: number } } | [resource: number |
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::destroy
-* @see app/Http/Controllers/Teacher/ResourceController.php:162
+* @see app/Http/Controllers/Teacher/ResourceController.php:167
 * @route '/teacher/resources/{resource}'
 */
 destroy.delete = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -584,7 +584,7 @@ destroy.delete = (args: { resource: number | { id: number } } | [resource: numbe
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::destroy
-* @see app/Http/Controllers/Teacher/ResourceController.php:162
+* @see app/Http/Controllers/Teacher/ResourceController.php:167
 * @route '/teacher/resources/{resource}'
 */
 const destroyForm = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -599,7 +599,7 @@ const destroyForm = (args: { resource: number | { id: number } } | [resource: nu
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::destroy
-* @see app/Http/Controllers/Teacher/ResourceController.php:162
+* @see app/Http/Controllers/Teacher/ResourceController.php:167
 * @route '/teacher/resources/{resource}'
 */
 destroyForm.delete = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -616,7 +616,7 @@ destroy.form = destroyForm
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/teacher/resources/{resource}/download'
 */
 export const download = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -631,7 +631,7 @@ download.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/teacher/resources/{resource}/download'
 */
 download.url = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -664,7 +664,7 @@ download.url = (args: { resource: number | { id: number } } | [resource: number 
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/teacher/resources/{resource}/download'
 */
 download.get = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -674,7 +674,7 @@ download.get = (args: { resource: number | { id: number } } | [resource: number 
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/teacher/resources/{resource}/download'
 */
 download.head = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -684,7 +684,7 @@ download.head = (args: { resource: number | { id: number } } | [resource: number
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/teacher/resources/{resource}/download'
 */
 const downloadForm = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -694,7 +694,7 @@ const downloadForm = (args: { resource: number | { id: number } } | [resource: n
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/teacher/resources/{resource}/download'
 */
 downloadForm.get = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -704,7 +704,7 @@ downloadForm.get = (args: { resource: number | { id: number } } | [resource: num
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/teacher/resources/{resource}/download'
 */
 downloadForm.head = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

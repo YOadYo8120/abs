@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Pencil, Trash2, Eye } from 'lucide-vue-next';
+import * as moduleRoutes from '@/routes/admin/modules';
 
 interface Module {
     id: number;
@@ -35,7 +36,7 @@ defineProps<Props>();
 
 const deleteModule = (id: number, name: string) => {
     if (confirm(`Are you sure you want to delete "${name}"?`)) {
-        router.delete(route('admin.modules.destroy', id));
+        router.delete(moduleRoutes.destroy.url({ module: id }));
     }
 };
 
@@ -55,7 +56,7 @@ const getYearBadgeVariant = (year: number) => {
                     <h1 class="text-3xl font-bold">Modules Management</h1>
                     <p class="text-muted-foreground">Manage course modules and assignments</p>
                 </div>
-                <Link :href="route('admin.modules.create')">
+                <Link :href="moduleRoutes.create.url()">
                     <Button>
                         <Plus class="mr-2 h-4 w-4" />
                         Add Module
@@ -112,12 +113,12 @@ const getYearBadgeVariant = (year: number) => {
                             </TableCell>
                             <TableCell class="text-right">
                                 <div class="flex justify-end gap-2">
-                                    <Link :href="route('admin.modules.show', module.id)">
+                                    <Link :href="moduleRoutes.show.url({ module: module.id })">
                                         <Button variant="ghost" size="sm">
                                             <Eye class="h-4 w-4" />
                                         </Button>
                                     </Link>
-                                    <Link :href="route('admin.modules.edit', module.id)">
+                                    <Link :href="moduleRoutes.edit.url({ module: module.id })">
                                         <Button variant="ghost" size="sm">
                                             <Pencil class="h-4 w-4" />
                                         </Button>

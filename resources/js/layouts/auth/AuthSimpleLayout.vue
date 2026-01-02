@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
+import { GraduationCap } from 'lucide-vue-next';
 import { home } from '@/routes';
 import { Link } from '@inertiajs/vue3';
 
@@ -10,33 +10,33 @@ defineProps<{
 </script>
 
 <template>
-    <div
-        class="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10"
-    >
-        <div class="w-full max-w-sm">
+    <div class="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
+        <div class="w-full max-w-md">
             <div class="flex flex-col gap-8">
-                <div class="flex flex-col items-center gap-4">
+                <div class="flex flex-col items-center gap-6">
                     <Link
                         :href="home()"
-                        class="flex flex-col items-center gap-2 font-medium"
+                        class="flex flex-col items-center gap-3 font-medium group"
                     >
-                        <div
-                            class="mb-1 flex h-9 w-9 items-center justify-center rounded-md"
-                        >
-                            <AppLogoIcon
-                                class="size-9 fill-current text-[var(--foreground)] dark:text-white"
-                            />
+                        <div class="bg-primary/10 rounded-2xl p-4 shadow-lg group-hover:shadow-xl transition-all duration-200">
+                            <GraduationCap class="w-12 h-12 text-primary" />
+                        </div>
+                        <div class="text-center">
+                            <h1 class="text-2xl font-bold">ABS Academic System</h1>
+                            <p class="text-sm text-muted-foreground">ENSA Safi Engineering School</p>
                         </div>
                         <span class="sr-only">{{ title }}</span>
                     </Link>
-                    <div class="space-y-2 text-center">
-                        <h1 class="text-xl font-medium">{{ title }}</h1>
-                        <p class="text-center text-sm text-muted-foreground">
+                    <div class="space-y-3 text-center max-w-sm">
+                        <h2 class="text-2xl font-bold">{{ title }}</h2>
+                        <p class="text-muted-foreground leading-relaxed">
                             {{ description }}
                         </p>
                     </div>
                 </div>
-                <slot />
+                <div class="bg-card rounded-2xl shadow-xl border p-8">
+                    <slot />
+                </div>
             </div>
         </div>
     </div>

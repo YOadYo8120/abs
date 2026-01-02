@@ -420,7 +420,7 @@ update.form = updateForm
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::show
-* @see app/Http/Controllers/Student/JustificationController.php:304
+* @see app/Http/Controllers/Student/JustificationController.php:306
 * @route '/student/justifications/{justification}'
 */
 export const show = (args: { justification: string | number } | [justification: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -435,7 +435,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::show
-* @see app/Http/Controllers/Student/JustificationController.php:304
+* @see app/Http/Controllers/Student/JustificationController.php:306
 * @route '/student/justifications/{justification}'
 */
 show.url = (args: { justification: string | number } | [justification: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -462,7 +462,7 @@ show.url = (args: { justification: string | number } | [justification: string | 
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::show
-* @see app/Http/Controllers/Student/JustificationController.php:304
+* @see app/Http/Controllers/Student/JustificationController.php:306
 * @route '/student/justifications/{justification}'
 */
 show.get = (args: { justification: string | number } | [justification: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -472,7 +472,7 @@ show.get = (args: { justification: string | number } | [justification: string | 
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::show
-* @see app/Http/Controllers/Student/JustificationController.php:304
+* @see app/Http/Controllers/Student/JustificationController.php:306
 * @route '/student/justifications/{justification}'
 */
 show.head = (args: { justification: string | number } | [justification: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -482,7 +482,7 @@ show.head = (args: { justification: string | number } | [justification: string |
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::show
-* @see app/Http/Controllers/Student/JustificationController.php:304
+* @see app/Http/Controllers/Student/JustificationController.php:306
 * @route '/student/justifications/{justification}'
 */
 const showForm = (args: { justification: string | number } | [justification: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -492,7 +492,7 @@ const showForm = (args: { justification: string | number } | [justification: str
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::show
-* @see app/Http/Controllers/Student/JustificationController.php:304
+* @see app/Http/Controllers/Student/JustificationController.php:306
 * @route '/student/justifications/{justification}'
 */
 showForm.get = (args: { justification: string | number } | [justification: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -502,7 +502,7 @@ showForm.get = (args: { justification: string | number } | [justification: strin
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::show
-* @see app/Http/Controllers/Student/JustificationController.php:304
+* @see app/Http/Controllers/Student/JustificationController.php:306
 * @route '/student/justifications/{justification}'
 */
 showForm.head = (args: { justification: string | number } | [justification: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -519,7 +519,7 @@ show.form = showForm
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::download
-* @see app/Http/Controllers/Student/JustificationController.php:353
+* @see app/Http/Controllers/Student/JustificationController.php:355
 * @route '/student/justifications/{file}/download'
 */
 export const download = (args: { file: string | number } | [file: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -534,7 +534,7 @@ download.definition = {
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::download
-* @see app/Http/Controllers/Student/JustificationController.php:353
+* @see app/Http/Controllers/Student/JustificationController.php:355
 * @route '/student/justifications/{file}/download'
 */
 download.url = (args: { file: string | number } | [file: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -561,7 +561,7 @@ download.url = (args: { file: string | number } | [file: string | number ] | str
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::download
-* @see app/Http/Controllers/Student/JustificationController.php:353
+* @see app/Http/Controllers/Student/JustificationController.php:355
 * @route '/student/justifications/{file}/download'
 */
 download.get = (args: { file: string | number } | [file: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -571,7 +571,7 @@ download.get = (args: { file: string | number } | [file: string | number ] | str
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::download
-* @see app/Http/Controllers/Student/JustificationController.php:353
+* @see app/Http/Controllers/Student/JustificationController.php:355
 * @route '/student/justifications/{file}/download'
 */
 download.head = (args: { file: string | number } | [file: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -581,7 +581,7 @@ download.head = (args: { file: string | number } | [file: string | number ] | st
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::download
-* @see app/Http/Controllers/Student/JustificationController.php:353
+* @see app/Http/Controllers/Student/JustificationController.php:355
 * @route '/student/justifications/{file}/download'
 */
 const downloadForm = (args: { file: string | number } | [file: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -591,7 +591,7 @@ const downloadForm = (args: { file: string | number } | [file: string | number ]
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::download
-* @see app/Http/Controllers/Student/JustificationController.php:353
+* @see app/Http/Controllers/Student/JustificationController.php:355
 * @route '/student/justifications/{file}/download'
 */
 downloadForm.get = (args: { file: string | number } | [file: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -601,7 +601,7 @@ downloadForm.get = (args: { file: string | number } | [file: string | number ] |
 
 /**
 * @see \App\Http\Controllers\Student\JustificationController::download
-* @see app/Http/Controllers/Student/JustificationController.php:353
+* @see app/Http/Controllers/Student/JustificationController.php:355
 * @route '/student/justifications/{file}/download'
 */
 downloadForm.head = (args: { file: string | number } | [file: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/student/resources/{resource}/download'
 */
 export const download = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ download.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/student/resources/{resource}/download'
 */
 download.url = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ download.url = (args: { resource: number | { id: number } } | [resource: number 
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/student/resources/{resource}/download'
 */
 download.get = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -59,7 +59,7 @@ download.get = (args: { resource: number | { id: number } } | [resource: number 
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/student/resources/{resource}/download'
 */
 download.head = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -69,7 +69,7 @@ download.head = (args: { resource: number | { id: number } } | [resource: number
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/student/resources/{resource}/download'
 */
 const downloadForm = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ const downloadForm = (args: { resource: number | { id: number } } | [resource: n
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/student/resources/{resource}/download'
 */
 downloadForm.get = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -89,7 +89,7 @@ downloadForm.get = (args: { resource: number | { id: number } } | [resource: num
 
 /**
 * @see \App\Http\Controllers\Teacher\ResourceController::download
-* @see app/Http/Controllers/Teacher/ResourceController.php:154
+* @see app/Http/Controllers/Teacher/ResourceController.php:158
 * @route '/student/resources/{resource}/download'
 */
 downloadForm.head = (args: { resource: number | { id: number } } | [resource: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

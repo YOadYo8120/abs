@@ -13,6 +13,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
+import * as announcementRoutes from '@/routes/teacher/announcements';
 
 interface Announcement {
     id: number
@@ -57,12 +58,12 @@ const getScopeLabel = (announcement: Announcement) => {
 
 const deleteAnnouncement = (id: number) => {
     if (confirm('Are you sure you want to delete this announcement?')) {
-        router.delete(route('teacher.announcements.destroy', id))
+        router.delete(announcementRoutes.destroy.url({ announcement: id }))
     }
 }
 
 const publishAnnouncement = (id: number) => {
-    router.post(route('teacher.announcements.publish', id))
+    router.post(announcementRoutes.publish.url({ announcement: id }))
 }
 </script>
 
@@ -77,7 +78,7 @@ const publishAnnouncement = (id: number) => {
                     <p class="text-muted-foreground">Manage announcements for your classes</p>
                 </div>
                 <Button as-child>
-                    <Link :href="route('teacher.announcements.create')">
+                    <Link :href="announcementRoutes.create.url()">
                         Create Announcement
                     </Link>
                 </Button>

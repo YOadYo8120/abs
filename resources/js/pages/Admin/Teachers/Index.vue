@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Pencil, Trash2, Eye } from 'lucide-vue-next';
+import * as teacherRoutes from '@/routes/admin/teachers';
 
 interface Teacher {
     id: number;
@@ -28,7 +29,7 @@ defineProps<Props>();
 
 const deleteTeacher = (id: number, name: string) => {
     if (confirm(`Are you sure you want to delete ${name}?`)) {
-        router.delete(route('admin.teachers.destroy', id));
+        router.delete(teacherRoutes.destroy.url({ teacher: id }));
     }
 };
 </script>
@@ -43,7 +44,7 @@ const deleteTeacher = (id: number, name: string) => {
                     <h1 class="text-3xl font-bold">Teachers Management</h1>
                     <p class="text-muted-foreground">Manage teacher accounts and assignments</p>
                 </div>
-                <Link :href="route('admin.teachers.create')">
+                <Link :href="teacherRoutes.create.url()">
                     <Button>
                         <Plus class="mr-2 h-4 w-4" />
                         Add Teacher
@@ -76,12 +77,12 @@ const deleteTeacher = (id: number, name: string) => {
                             <TableCell>{{ new Date(teacher.created_at).toLocaleDateString() }}</TableCell>
                             <TableCell class="text-right">
                                 <div class="flex justify-end gap-2">
-                                    <Link :href="route('admin.teachers.show', teacher.id)">
+                                    <Link :href="teacherRoutes.show.url({ teacher: teacher.id })">
                                         <Button variant="ghost" size="sm">
                                             <Eye class="h-4 w-4" />
                                         </Button>
                                     </Link>
-                                    <Link :href="route('admin.teachers.edit', teacher.id)">
+                                    <Link :href="teacherRoutes.edit.url({ teacher: teacher.id })">
                                         <Button variant="ghost" size="sm">
                                             <Pencil class="h-4 w-4" />
                                         </Button>
@@ -110,8 +111,9 @@ const deleteTeacher = (id: number, name: string) => {
                         'px-3 py-1 rounded',
                         link.active ? 'bg-primary text-primary-foreground' : 'bg-secondary hover:bg-secondary/80'
                     ]"
-                    v-html="link.label"
-                />
+                >
+                    {{ link.label }}
+                </Link>
             </div>
         </div>
     </AppLayout>

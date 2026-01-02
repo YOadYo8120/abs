@@ -42,15 +42,15 @@ interface Props {
 
 defineProps<Props>();
 
-const getYearBadgeVariant = (year: number) => {
-    const variants: Record<number, string> = {
-        1: 'default',
-        2: 'secondary',
-        3: 'outline',
-        4: 'destructive',
-        5: 'default'
+const getYearBadgeColor = (year: number): string => {
+    const colors: Record<number, string> = {
+        1: 'bg-blue-100 text-blue-800 border-blue-200',
+        2: 'bg-green-100 text-green-800 border-green-200',
+        3: 'bg-amber-100 text-amber-800 border-amber-200',
+        4: 'bg-violet-100 text-violet-800 border-violet-200',
+        5: 'bg-rose-100 text-rose-800 border-rose-200'
     };
-    return variants[year] || 'secondary';
+    return colors[year] || 'bg-gray-100 text-gray-800 border-gray-200';
 };
 </script>
 
@@ -58,32 +58,35 @@ const getYearBadgeVariant = (year: number) => {
     <AppLayout>
         <Head title="Admin Dashboard" />
 
-        <div class="container mx-auto py-8 space-y-8">
-            <!-- Header -->
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold">Admin Dashboard</h1>
-                    <p class="text-muted-foreground">Manage teachers, modules, students and schedules</p>
+        <div class="py-8 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto space-y-8">
+                <!-- Header -->
+                <div class="bg-card border rounded-2xl shadow-lg p-8">
+                    <div class="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-4xl font-bold mb-2">Admin Dashboard</h1>
+                            <p class="text-muted-foreground">Manage teachers, modules, students and schedules</p>
+                        </div>
+                        <div class="flex gap-3 flex-wrap">
+                            <Link :href="studentsIndex.url()">
+                                <Button size="lg">
+                                    <Users class="mr-2 h-5 w-5" />
+                                    Manage Students
+                                </Button>
+                            </Link>
+                            <Link :href="schedulesIndex.url()">
+                                <Button size="lg" variant="outline">
+                                    <Calendar class="mr-2 h-5 w-5" />
+                                    Manage Schedules
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex gap-2">
-                    <Link :href="studentsIndex.url()">
-                        <Button size="lg" variant="outline">
-                            <Users class="mr-2 h-5 w-5" />
-                            Manage Students
-                        </Button>
-                    </Link>
-                    <Link :href="schedulesIndex.url()">
-                        <Button size="lg">
-                            <Calendar class="mr-2 h-5 w-5" />
-                            Manage Schedules
-                        </Button>
-                    </Link>
-                </div>
-            </div>
 
             <!-- Quick Actions -->
             <div class="grid gap-4 md:grid-cols-4">
-                <Card class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 border-blue-200 dark:border-blue-800 cursor-pointer hover:shadow-lg transition-shadow" @click="router.visit('/admin/announcements/create')">
+                <Card class="cursor-pointer hover:shadow-xl transition-all hover:scale-105 border-2" @click="router.visit('/admin/announcements/create')">
                     <CardHeader>
                         <CardTitle class="flex items-center gap-2">
                             <Megaphone class="h-5 w-5" />
@@ -97,7 +100,7 @@ const getYearBadgeVariant = (year: number) => {
                     </CardContent>
                 </Card>
 
-                <Card class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 border-purple-200 dark:border-purple-800 cursor-pointer hover:shadow-lg transition-shadow" @click="router.visit('/admin/justifications')">
+                <Card class="cursor-pointer hover:shadow-xl transition-all hover:scale-105 border-2" @click="router.visit('/admin/justifications')">
                     <CardHeader>
                         <CardTitle class="flex items-center gap-2">
                             <FileText class="h-5 w-5" />
@@ -110,7 +113,7 @@ const getYearBadgeVariant = (year: number) => {
                     </CardContent>
                 </Card>
 
-                <Card class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 border-green-200 dark:border-green-800 cursor-pointer hover:shadow-lg transition-shadow" @click="router.visit(attendanceListIndex.url())">
+                <Card class="cursor-pointer hover:shadow-xl transition-all hover:scale-105 border-2" @click="router.visit(attendanceListIndex.url())">
                     <CardHeader>
                         <CardTitle class="flex items-center gap-2">
                             <FileDown class="h-5 w-5" />
@@ -123,7 +126,7 @@ const getYearBadgeVariant = (year: number) => {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card class="border-2 hover:shadow-xl transition-all hover:scale-105 cursor-pointer" @click="router.visit(studentsIndex.url())">
                     <CardHeader>
                         <CardTitle class="flex items-center gap-2">
                             <Users class="h-5 w-5" />
@@ -132,84 +135,69 @@ const getYearBadgeVariant = (year: number) => {
                         <CardDescription>Manage student records and information</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Link :href="studentsIndex.url()">
-                            <Button class="w-full" size="lg" variant="outline">
-                                Manage Students
-                            </Button>
-                        </Link>
-                    </CardContent>
-                </Card>
-            </div>
-
-            <!-- Additional Quick Actions -->
-            <div class="grid gap-4 md:grid-cols-2">
-                <Card>
-                    <CardHeader>
-                        <CardTitle class="flex items-center gap-2">
-                            <Calendar class="h-5 w-5" />
-                            Schedule Management
-                        </CardTitle>
-                        <CardDescription>Create and manage class schedules</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <Link :href="schedulesIndex.url()">
-                            <Button class="w-full" size="lg" variant="outline">
-                                Manage Schedules
-                            </Button>
-                        </Link>
+                        <Button class="w-full" size="lg">
+                            Manage Students
+                        </Button>
                     </CardContent>
                 </Card>
             </div>
 
             <!-- Stats Cards -->
-            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
                     <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle class="text-sm font-medium">Total Teachers</CardTitle>
-                        <Users class="h-4 w-4 text-muted-foreground" />
+                        <CardTitle class="text-sm font-semibold">Total Teachers</CardTitle>
+                        <Users class="h-5 w-5 text-primary" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">{{ stats.total_teachers }}</div>
+                        <div class="text-3xl font-bold">{{ stats.total_teachers }}</div>
+                        <p class="text-xs text-muted-foreground mt-1">Recent teachers in the system</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle class="text-sm font-medium">Total Modules</CardTitle>
-                        <BookOpen class="h-4 w-4 text-muted-foreground" />
+                        <CardTitle class="text-sm font-semibold">Total Modules</CardTitle>
+                        <BookOpen class="h-5 w-5 text-primary" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">{{ stats.total_modules }}</div>
+                        <div class="text-3xl font-bold">{{ stats.total_modules }}</div>
+                        <p class="text-xs text-muted-foreground mt-1">Active modules</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle class="text-sm font-medium">Year 1 Modules</CardTitle>
-                        <GraduationCap class="h-4 w-4 text-muted-foreground" />
+                        <CardTitle class="text-sm font-semibold">Year 1 Modules</CardTitle>
+                        <GraduationCap class="h-5 w-5 text-primary" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">{{ stats.modules_by_year[1] || 0 }}</div>
+                        <div class="text-3xl font-bold">{{ stats.modules_by_year[1] || 0 }}</div>
+                        <p class="text-xs text-muted-foreground mt-1">First year courses</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle class="text-sm font-medium">Year 5 Modules</CardTitle>
-                        <GraduationCap class="h-4 w-4 text-muted-foreground" />
+                        <CardTitle class="text-sm font-semibold">Year 5 Modules</CardTitle>
+                        <GraduationCap class="h-5 w-5 text-primary" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">{{ stats.modules_by_year[5] || 0 }}</div>
+                        <div class="text-3xl font-bold">{{ stats.modules_by_year[5] || 0 }}</div>
+                        <p class="text-xs text-muted-foreground mt-1">Fifth year courses</p>
                     </CardContent>
                 </Card>
             </div>
 
             <!-- Teachers Section -->
-            <Card>
-                <CardHeader>
+            <Card class="border-2">
+                <CardHeader class="rounded-t-lg">
                     <div class="flex items-center justify-between">
                         <div>
-                            <CardTitle>Teachers</CardTitle>
+                            <CardTitle class="text-2xl flex items-center gap-2">
+                                <Users class="h-6 w-6" />
+                                Teachers
+                            </CardTitle>
                             <CardDescription>Recent teachers in the system</CardDescription>
                         </div>
                         <div class="flex gap-2">
@@ -225,25 +213,25 @@ const getYearBadgeVariant = (year: number) => {
                         </div>
                     </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent class="pt-6">
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Email</TableHead>
-                                <TableHead>Modules</TableHead>
+                                <TableHead class="font-semibold">Name</TableHead>
+                                <TableHead class="font-semibold">Email</TableHead>
+                                <TableHead class="font-semibold">Modules</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="teacher in teachers" :key="teacher.id">
+                            <TableRow v-for="teacher in teachers" :key="teacher.id" class="hover:bg-muted/50 transition-colors">
                                 <TableCell class="font-medium">{{ teacher.name }}</TableCell>
                                 <TableCell>{{ teacher.email }}</TableCell>
                                 <TableCell>
-                                    <Badge variant="secondary">{{ teacher.modules_count }}</Badge>
+                                    <Badge>{{ teacher.modules_count }}</Badge>
                                 </TableCell>
                             </TableRow>
                             <TableRow v-if="teachers.length === 0">
-                                <TableCell colspan="3" class="text-center text-muted-foreground">
+                                <TableCell colspan="3" class="text-center py-8">
                                     No teachers found. Create your first teacher!
                                 </TableCell>
                             </TableRow>
@@ -253,11 +241,14 @@ const getYearBadgeVariant = (year: number) => {
             </Card>
 
             <!-- Modules Section -->
-            <Card>
-                <CardHeader>
+            <Card class="border-2">
+                <CardHeader class="rounded-t-lg">
                     <div class="flex items-center justify-between">
                         <div>
-                            <CardTitle>Modules</CardTitle>
+                            <CardTitle class="text-2xl flex items-center gap-2">
+                                <BookOpen class="h-6 w-6" />
+                                Modules
+                            </CardTitle>
                             <CardDescription>Recent modules in the system</CardDescription>
                         </div>
                         <div class="flex gap-2">
@@ -273,23 +264,23 @@ const getYearBadgeVariant = (year: number) => {
                         </div>
                     </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent class="pt-6">
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Code</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Year</TableHead>
-                                <TableHead>Teacher</TableHead>
-                                <TableHead class="text-right">Actions</TableHead>
+                                <TableHead class="font-semibold">Code</TableHead>
+                                <TableHead class="font-semibold">Name</TableHead>
+                                <TableHead class="font-semibold">Year</TableHead>
+                                <TableHead class="font-semibold">Teacher</TableHead>
+                                <TableHead class="text-right font-semibold">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="module in modules" :key="module.id">
+                            <TableRow v-for="module in modules" :key="module.id" class="hover:bg-muted/50 transition-colors">
                                 <TableCell class="font-mono font-medium">{{ module.code }}</TableCell>
                                 <TableCell>{{ module.name }}</TableCell>
                                 <TableCell>
-                                    <Badge :variant="getYearBadgeVariant(module.year)">
+                                    <Badge :class="getYearBadgeColor(module.year)">
                                         Year {{ module.year }}
                                     </Badge>
                                 </TableCell>
@@ -306,7 +297,7 @@ const getYearBadgeVariant = (year: number) => {
                                 </TableCell>
                             </TableRow>
                             <TableRow v-if="modules.length === 0">
-                                <TableCell colspan="5" class="text-center text-muted-foreground">
+                                <TableCell colspan="5" class="text-center py-8">
                                     No modules found. Create your first module!
                                 </TableCell>
                             </TableRow>
@@ -314,6 +305,7 @@ const getYearBadgeVariant = (year: number) => {
                     </Table>
                 </CardContent>
             </Card>
+            </div>
         </div>
     </AppLayout>
 </template>

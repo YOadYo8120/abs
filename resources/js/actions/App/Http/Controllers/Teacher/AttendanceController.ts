@@ -82,7 +82,7 @@ index.form = indexForm
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::schedules
-* @see app/Http/Controllers/Teacher/AttendanceController.php:135
+* @see app/Http/Controllers/Teacher/AttendanceController.php:150
 * @route '/teacher/attendance/schedules'
 */
 export const schedules = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -97,7 +97,7 @@ schedules.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::schedules
-* @see app/Http/Controllers/Teacher/AttendanceController.php:135
+* @see app/Http/Controllers/Teacher/AttendanceController.php:150
 * @route '/teacher/attendance/schedules'
 */
 schedules.url = (options?: RouteQueryOptions) => {
@@ -106,7 +106,7 @@ schedules.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::schedules
-* @see app/Http/Controllers/Teacher/AttendanceController.php:135
+* @see app/Http/Controllers/Teacher/AttendanceController.php:150
 * @route '/teacher/attendance/schedules'
 */
 schedules.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -116,7 +116,7 @@ schedules.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::schedules
-* @see app/Http/Controllers/Teacher/AttendanceController.php:135
+* @see app/Http/Controllers/Teacher/AttendanceController.php:150
 * @route '/teacher/attendance/schedules'
 */
 schedules.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -126,7 +126,7 @@ schedules.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::schedules
-* @see app/Http/Controllers/Teacher/AttendanceController.php:135
+* @see app/Http/Controllers/Teacher/AttendanceController.php:150
 * @route '/teacher/attendance/schedules'
 */
 const schedulesForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -136,7 +136,7 @@ const schedulesForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> 
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::schedules
-* @see app/Http/Controllers/Teacher/AttendanceController.php:135
+* @see app/Http/Controllers/Teacher/AttendanceController.php:150
 * @route '/teacher/attendance/schedules'
 */
 schedulesForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -146,7 +146,7 @@ schedulesForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> =>
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::schedules
-* @see app/Http/Controllers/Teacher/AttendanceController.php:135
+* @see app/Http/Controllers/Teacher/AttendanceController.php:150
 * @route '/teacher/attendance/schedules'
 */
 schedulesForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -163,7 +163,7 @@ schedules.form = schedulesForm
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::update
-* @see app/Http/Controllers/Teacher/AttendanceController.php:91
+* @see app/Http/Controllers/Teacher/AttendanceController.php:106
 * @route '/teacher/attendance'
 */
 export const update = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -178,7 +178,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::update
-* @see app/Http/Controllers/Teacher/AttendanceController.php:91
+* @see app/Http/Controllers/Teacher/AttendanceController.php:106
 * @route '/teacher/attendance'
 */
 update.url = (options?: RouteQueryOptions) => {
@@ -187,7 +187,7 @@ update.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::update
-* @see app/Http/Controllers/Teacher/AttendanceController.php:91
+* @see app/Http/Controllers/Teacher/AttendanceController.php:106
 * @route '/teacher/attendance'
 */
 update.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -197,7 +197,7 @@ update.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::update
-* @see app/Http/Controllers/Teacher/AttendanceController.php:91
+* @see app/Http/Controllers/Teacher/AttendanceController.php:106
 * @route '/teacher/attendance'
 */
 const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -207,7 +207,7 @@ const updateForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> =>
 
 /**
 * @see \App\Http\Controllers\Teacher\AttendanceController::update
-* @see app/Http/Controllers/Teacher/AttendanceController.php:91
+* @see app/Http/Controllers/Teacher/AttendanceController.php:106
 * @route '/teacher/attendance'
 */
 updateForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
